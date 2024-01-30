@@ -1,9 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"strconv"
 	"strings"
 )
 
@@ -15,13 +14,20 @@ import (
 // Then, the output should be: [34 67 55 33 12 98]
 
 func main() {
-	print("Please input a number:  ")
-	numbers, err := bufio.NewReader(os.Stdin).ReadString('\n')
-	if err != nil {
-		fmt.Printf("Please enter correct number!\n %v", err.Error())
-		return
+	a := play("34, 67, 55, 33, 12, 98")
+	fmt.Printf("%v\n", a)
+}
+
+func play(input string) []int {
+	var numbers []int
+	list := strings.Split(input, ",")
+	for _, num := range list {
+		a := strings.TrimSpace(num)
+		b, err := strconv.Atoi(a)
+		if err != nil {
+			fmt.Print(err.Error())
+		}
+		numbers = append(numbers, b)
 	}
-	fmt.Print(numbers)
-	list := strings.Split(numbers, ",")
-	fmt.Printf("%v\n", list)
+	return numbers
 }
